@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #050a14;
+    color: #e2e8f0;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050a14;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #00e5ff44;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00e5ff88;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-cyan text-brand-dark font-display font-semibold px-6 py-3 rounded-xl
+      transition-all duration-300 hover:shadow-[0_0_30px_#00e5ff66] hover:scale-105
+      active:scale-95 cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply border border-brand-cyan text-brand-cyan font-display font-semibold px-6 py-3 rounded-xl
+      transition-all duration-300 hover:bg-brand-cyan hover:text-brand-dark
+      active:scale-95 cursor-pointer;
+  }
+
+  .card {
+    @apply bg-brand-card border border-brand-border rounded-2xl p-6 transition-all duration-300
+      hover:border-brand-cyan/40 hover:shadow-[0_0_30px_#00e5ff11];
+  }
+
+  .input {
+    @apply w-full bg-brand-darker border border-brand-border rounded-xl px-4 py-3
+      text-white font-body placeholder-slate-500 outline-none transition-all duration-200
+      focus:border-brand-cyan/60 focus:shadow-[0_0_0_3px_#00e5ff22];
+  }
+
+  .label {
+    @apply block text-sm font-display font-medium text-slate-400 mb-2;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-3xl md:text-4xl text-white;
+  }
+
+  .section-subtitle {
+    @apply font-body text-slate-400 text-lg mt-3 max-w-2xl;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-display font-semibold;
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 40px currentColor;
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* Cursor glow */
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  z-index: 1;
+}
