@@ -117,10 +117,16 @@ export default function Login() {
             />
           </div>
 
-          <p className="font-body text-slate-400 text-sm text-center mt-6">
-            Pas encore de compte ?{' '}
-            <Link to="/register" className="text-brand-cyan hover:underline">Créer un compte</Link>
-          </p>
+          <div className="mt-6 flex flex-col items-center gap-2">
+            <p className="font-body text-slate-400 text-sm text-center">
+              Pas encore de compte ?{' '}
+              <Link to="/register" className="text-brand-cyan hover:underline">Créer un compte</Link>
+            </p>
+            <div className="w-1 h-1 bg-slate-700 rounded-full" />
+            <Link to="/enfant/login" className="text-slate-400 hover:text-brand-cyan text-sm transition-colors">
+              Espace Apprenant (Enfant)
+            </Link>
+          </div>
         </div>
       </div>
     </div>
