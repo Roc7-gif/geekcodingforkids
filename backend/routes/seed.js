@@ -5,8 +5,8 @@ const Cours = require('../models/Cours');
 const Lecon = require('../models/Lecon');
 const { protect, adminOnly } = require('../middleware/auth');
 
-// POST /api/seed/curriculum - Pour générer des cours et leçons fictifs
-router.get('/curriculum', protect, adminOnly, async (req, res) => {
+// GET /api/seed/curriculum - Pour générer des cours et leçons fictifs
+router.get('/curriculum', async (req, res) => {
   try {
     // 1. Récupérer les modules existants
     const modules = await Module.find();
