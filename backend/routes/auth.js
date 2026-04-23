@@ -37,23 +37,23 @@ router.post('/register', [
 router.post('/google', async (req, res) => {
   try {
     const { tokenId } = req.body;
-    
+
     // Vérifier le token avec Google
     const ticket = await client.verifyIdToken({
       idToken: tokenId,
       audience: process.env.GOOGLE_CLIENT_ID
     });
-    
+
     const payload = ticket.getPayload();
     const { sub, email, family_name, given_name, picture } = payload;
 
     // 1. Chercher par googleId
     let user = await User.findOne({ googleId: sub });
-    
+
     if (!user) {
       // 2. Chercher par email pour lier le compte
       user = await User.findOne({ email });
-      
+
       if (user) {
         // Lier le compte Google au compte email existant
         user.googleId = sub;
@@ -83,6 +83,29 @@ router.post('/google', async (req, res) => {
 });
 
 // POST /api/auth/login
+router.post('/login', [
+  body('email').isEmail().withMessage('Email invalide'),
+  body('password').notEmpty().withMessage('Mot de passe requis'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user || !(await user.matchPassword(password))) {
+      return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+    }
+
+    res.json({
+      user,
+      token: generateToken(user._id)
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // GET /api/auth/me
 router.get('/me', protect, async (req, res) => {
