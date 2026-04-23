@@ -15,7 +15,7 @@ connectDB();
 // Middlewares
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
-    ? 'https://geekcoding4kids.com'
+    ? 'https://geekcodingforkids.onrender.com'
     : ['http://localhost:5173', 'http://localhost:5174'],
   credentials: true,
 }));
@@ -68,6 +68,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Serveur GeekCoding4Kids démarré sur le port ${PORT}`);
+  console.log(`🚀 Serveur GeekCoding4Kids démarré sur le port ${process.env.IP_ADDRESS || '0.O.0.0'}:${PORT}`);
 });
 
