@@ -41,6 +41,20 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'GeekCoding4Kids API opérationnelle 🚀' });
 });
 
+// Servir les fichiers statiques du build React en production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+  // Rediriger toutes les autres requêtes vers l'index.html de React
+  app.get('*', (req, res, next) => {
+    // Si c'est une requête API qui n'a pas été trouvée, on passe au 404
+    if (req.url.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+  });
+}
+
 // 404
 app.use((req, res) => {
   res.status(404).json({ message: 'Route non trouvée' });
