@@ -56,7 +56,7 @@ router.post('/create-link/:inscriptionId', protect, async (req, res) => {
     res.json({ url: token.url });
   } catch (err) {
     console.error('FedaPay Error:', err);
-    res.status(500).json({ message: 'Erreur lors de la création du paiement' });
+    res.status(500).json({ message: ` Erreur lors de la création du paiement : ${err}` });
   }
 });
 
