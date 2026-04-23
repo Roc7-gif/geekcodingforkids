@@ -35,6 +35,7 @@ app.use('/api/cours', require('./routes/cours'));
 app.use('/api/lecons', require('./routes/lecons'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/payments', require('./routes/payment'));
+app.use('/api/seed', require('./routes/seed'));
 
 // Health check
 app.get('/api/health', (req, res) => {
